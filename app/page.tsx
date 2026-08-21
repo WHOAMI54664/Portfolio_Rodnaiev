@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { FaLinkedin } from "react-icons/fa6";
-import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuGraduationCap, LuMapPin, LuMenu, LuStar, LuX } from "react-icons/lu";
+import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
 import { SiFigma, SiGithub, SiGmail, SiNextdotjs } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
@@ -326,14 +327,21 @@ const projectMeta: Record<ProjectKey, { status: ProjectStatus; url: string; stac
 
 const projectKeys = Object.keys(projectMeta) as ProjectKey[];
 
+const projectCovers: Record<ProjectKey, { src: string; host: string }> = {
+  ostrov: { src: "/projects/ostrovua-home.png", host: "ostrovua.net" },
+  laboris: { src: "/projects/laboris-home.png", host: "laboris.dev" },
+  nordic: { src: "/projects/nordic-eatery-home.png", host: "nordiceatery.se" },
+};
+
 function ProjectMockup({ project }: { project: ProjectKey }) {
-  if (project === "ostrov") {
-    return <div className="mockup ostrov-mock" aria-hidden="true"><div className="browser"><div className="browser-bar"><i /><i /><i /></div><div className="dashboard"><aside><b>O</b><span /><span /><span /><span /></aside><div className="dash-main"><strong>Community projects</strong><div className="metric-row"><i /><i /><i /></div><div className="project-row"><i /><i /><i /><i /></div></div></div></div><div className="phone"><div className="phone-notch" /><strong>Projects</strong><i /><i /><i /></div><div className="verify-float"><LuCircleCheck /> Verification flow</div></div>;
-  }
-  if (project === "laboris") {
-    return <div className="mockup laboris-mock" aria-hidden="true"><div className="laboris-word">LABORIS <small>HONEST WORKPLACES</small></div><div className="search-ui"><b>Find your next job<br />without surprises</b><div className="search-line">Find a company… <span>Search</span></div><div className="company-cards"><i><b>4.8</b><small>Work-life</small></i><i><b>92%</b><small>Trust</small></i><i><b>Low</b><small>Turnover</small></i></div></div><div className="review-float"><span className="rating-icons">{Array.from({ length: 5 }, (_, index) => <LuStar key={index} />)}</span><small>Verified review</small></div></div>;
-  }
-  return <div className="mockup nordic-mock" aria-hidden="true"><div className="menu-window"><div className="menu-top">NORDIC EATERY <span>Menu · About · Order</span></div><div className="dish"><div className="plate"><i /><i /><i /><i /></div><div><small>NORDIC FLAVORS</small><b>Made with care.</b><span>Explore menu <LuArrowRight /></span></div></div></div><div className="food-phone"><div className="phone-notch" /><b>Your order</b><i>Burger <span>145 kr</span></i><i>Salad <span>110 kr</span></i><strong>Checkout</strong></div></div>;
+  const cover = projectCovers[project];
+  return <div className={`mockup site-preview ${project}`} aria-hidden="true">
+    <div className="site-preview-window">
+      <div className="site-preview-bar"><span><i /><i /><i /></span><b>{cover.host}</b></div>
+      <div className="site-preview-image"><Image src={cover.src} alt="" fill sizes="(max-width: 820px) 94vw, 50vw" /></div>
+    </div>
+    <span className="site-preview-label"><LuArrowUpRight /> LIVE HOMEPAGE</span>
+  </div>;
 }
 
 export default function Home() {
