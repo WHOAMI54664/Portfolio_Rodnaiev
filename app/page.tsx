@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { FaLinkedin } from "react-icons/fa6";
+import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuGraduationCap, LuMapPin, LuMenu, LuStar, LuX } from "react-icons/lu";
+import { SiFigma, SiGithub, SiGmail, SiNextdotjs } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
 type ProjectKey = "ostrov" | "laboris" | "nordic";
@@ -316,12 +319,12 @@ const projectKeys = Object.keys(projectMeta) as ProjectKey[];
 
 function ProjectMockup({ project }: { project: ProjectKey }) {
   if (project === "ostrov") {
-    return <div className="mockup ostrov-mock" aria-hidden="true"><div className="browser"><div className="browser-bar"><i /><i /><i /></div><div className="dashboard"><aside><b>O</b><span /><span /><span /><span /></aside><div className="dash-main"><strong>Community projects</strong><div className="metric-row"><i /><i /><i /></div><div className="project-row"><i /><i /><i /><i /></div></div></div></div><div className="phone"><div className="phone-notch" /><strong>Projects</strong><i /><i /><i /></div><div className="verify-float">✓ Verification flow</div></div>;
+    return <div className="mockup ostrov-mock" aria-hidden="true"><div className="browser"><div className="browser-bar"><i /><i /><i /></div><div className="dashboard"><aside><b>O</b><span /><span /><span /><span /></aside><div className="dash-main"><strong>Community projects</strong><div className="metric-row"><i /><i /><i /></div><div className="project-row"><i /><i /><i /><i /></div></div></div></div><div className="phone"><div className="phone-notch" /><strong>Projects</strong><i /><i /><i /></div><div className="verify-float"><LuCircleCheck /> Verification flow</div></div>;
   }
   if (project === "laboris") {
-    return <div className="mockup laboris-mock" aria-hidden="true"><div className="laboris-word">LABORIS <small>HONEST WORKPLACES</small></div><div className="search-ui"><b>Find your next job<br />without surprises</b><div className="search-line">Find a company… <span>Search</span></div><div className="company-cards"><i><b>4.8</b><small>Work-life</small></i><i><b>92%</b><small>Trust</small></i><i><b>Low</b><small>Turnover</small></i></div></div><div className="review-float">★★★★★<small>Verified review</small></div></div>;
+    return <div className="mockup laboris-mock" aria-hidden="true"><div className="laboris-word">LABORIS <small>HONEST WORKPLACES</small></div><div className="search-ui"><b>Find your next job<br />without surprises</b><div className="search-line">Find a company… <span>Search</span></div><div className="company-cards"><i><b>4.8</b><small>Work-life</small></i><i><b>92%</b><small>Trust</small></i><i><b>Low</b><small>Turnover</small></i></div></div><div className="review-float"><span className="rating-icons">{Array.from({ length: 5 }, (_, index) => <LuStar key={index} />)}</span><small>Verified review</small></div></div>;
   }
-  return <div className="mockup nordic-mock" aria-hidden="true"><div className="menu-window"><div className="menu-top">NORDIC EATERY <span>Menu · About · Order</span></div><div className="dish"><div className="plate"><i /><i /><i /><i /></div><div><small>NORDIC FLAVORS</small><b>Made with care.</b><span>Explore menu →</span></div></div></div><div className="food-phone"><div className="phone-notch" /><b>Your order</b><i>Burger <span>145 kr</span></i><i>Salad <span>110 kr</span></i><strong>Checkout</strong></div></div>;
+  return <div className="mockup nordic-mock" aria-hidden="true"><div className="menu-window"><div className="menu-top">NORDIC EATERY <span>Menu · About · Order</span></div><div className="dish"><div className="plate"><i /><i /><i /><i /></div><div><small>NORDIC FLAVORS</small><b>Made with care.</b><span>Explore menu <LuArrowRight /></span></div></div></div><div className="food-phone"><div className="phone-notch" /><b>Your order</b><i>Burger <span>145 kr</span></i><i>Salad <span>110 kr</span></i><strong>Checkout</strong></div></div>;
 }
 
 export default function Home() {
@@ -372,19 +375,19 @@ export default function Home() {
           <a href="#work">{t.nav.work}</a><a href="#about">{t.nav.about}</a><a href="#skills">{t.nav.skills}</a><a href="#contact">{t.nav.contact}</a>
         </nav>
         <div className="header-right">
-          <a className="social-link" href={SOCIAL.github} target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a className="social-link linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
+          <a className="social-link github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a>
+          <a className="social-link linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a>
           <div className="language-switcher" aria-label="Language selector">
             {(["ru", "en", "sv"] as Language[]).map((item) => <button key={item} className={language === item ? "active" : ""} aria-pressed={language === item} onClick={() => { setLanguage(item); setMobileMenuOpen(false); }}>{item.toUpperCase()}</button>)}
           </div>
-          <button className={`menu-toggle ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen((open) => !open)}><span /><span /><span /></button>
+          <button className={`menu-toggle ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen((open) => !open)}>{mobileMenuOpen ? <LuX /> : <LuMenu />}</button>
         </div>
       </header>
 
       <button className={`mobile-menu-scrim ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label="Close navigation menu" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)} />
       <nav className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!mobileMenuOpen}>
-        {([["01", "work", t.nav.work], ["02", "about", t.nav.about], ["03", "skills", t.nav.skills], ["04", "contact", t.nav.contact]] as const).map(([number, anchor, label]) => <a key={anchor} href={`#${anchor}`} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)}><small>{number}</small><span>{label}</span><b>↘</b></a>)}
-        <div className="mobile-menu-footer"><span>DANYLO RODNAIEV<br />Luleå / Norrbotten</span><div><a href={SOCIAL.github} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>GitHub ↗</a><a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>LinkedIn ↗</a></div></div>
+        {([["01", "work", t.nav.work], ["02", "about", t.nav.about], ["03", "skills", t.nav.skills], ["04", "contact", t.nav.contact]] as const).map(([number, anchor, label]) => <a key={anchor} href={`#${anchor}`} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)}><small>{number}</small><span>{label}</span><b><LuArrowDownRight /></b></a>)}
+        <div className="mobile-menu-footer"><span>DANYLO RODNAIEV<br />Luleå / Norrbotten</span><div><a href={SOCIAL.github} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><SiGithub /> GitHub</a><a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><FaLinkedin /> LinkedIn</a></div></div>
       </nav>
 
       <section className="hero section-shell">
@@ -393,14 +396,14 @@ export default function Home() {
           <h1>{t.heroTitle}<br /><em>{t.heroAccent}</em></h1>
           <p className="hero-intro">{t.heroIntro}</p>
           <p className="hero-detail">{t.heroDetail}</p>
-          <div className="hero-actions"><a className="primary-button" href="#work">{t.viewWork}<span>↓</span></a><a className="secondary-button" href={SOCIAL.github} target="_blank" rel="noreferrer">GitHub ↗</a></div>
-          <div className="location-line"><span>⌖</span><p><b>{t.location}</b><small>{t.availability}</small></p></div>
+          <div className="hero-actions"><a className="primary-button" href="#work">{t.viewWork}<LuArrowDown /></a><a className="secondary-button" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a></div>
+          <div className="location-line"><span><LuMapPin /></span><p><b>{t.location}</b><small>{t.availability}</small></p></div>
         </div>
         <div className="hero-visual" aria-label="Interactive developer workspace illustration">
           <div className="hero-grid" /><div className="orb orb-one" /><div className="orb orb-two" />
-          <div className="code-window"><div className="window-top"><i /><i /><i /><span>portfolio.tsx</span><small>● LIVE</small></div><pre><code><b>const</b> developer = {`{`}<br />  craft: <mark>"full-stack"</mark>,<br />  design: <mark>true</mark>,<br />  ships: <mark>"to production"</mark>,<br />  location: <mark>"Sweden"</mark><br />{`}`};</code></pre><div className="code-status"><span>✓</span> Type-safe build</div></div>
+          <div className="code-window"><div className="window-top"><i /><i /><i /><span>portfolio.tsx</span><small><i className="live-dot" /> LIVE</small></div><pre><code><b>const</b> developer = {`{`}<br />  craft: <mark>"full-stack"</mark>,<br />  design: <mark>true</mark>,<br />  ships: <mark>"to production"</mark>,<br />  location: <mark>"Sweden"</mark><br />{`}`};</code></pre><div className="code-status"><LuCircleCheck /> Type-safe build</div></div>
           <div className="floating-card"><b>03</b><span>products<br />designed & built</span></div>
-          <div className="tech-pill pill-one">NEXT.JS</div><div className="tech-pill pill-two">FIGMA</div>
+          <div className="tech-pill pill-one"><SiNextdotjs /> NEXT.JS</div><div className="tech-pill pill-two"><SiFigma /> FIGMA</div>
         </div>
       </section>
 
@@ -413,11 +416,11 @@ export default function Home() {
               return <article className={`project-card ${meta.tone}`} key={`${language}-${key}`}>
                 <div className="project-visual"><span className="project-number">{meta.number}</span><ProjectMockup project={key} /></div>
                 <div className="project-copy">
-                  <span className={`status ${meta.status}`}>● {t.projectLabels[meta.status]}</span>
+                  <span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span>
                   <h3>{project.title}</h3><h4>{project.subtitle}</h4><p>{project.description}</p>
                   <div className="role"><small>{t.roleLabel}</small><span>{project.role}</span></div>
                   <div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div>
-                  <div className="project-actions"><button onClick={() => setActiveProject(key)}>{t.caseStudy} <span>→</span></button><a href={meta.url} target="_blank" rel="noreferrer">{t.visit} ↗</a></div>
+                  <div className="project-actions"><button onClick={() => setActiveProject(key)}>{t.caseStudy} <LuArrowRight /></button><a href={meta.url} target="_blank" rel="noreferrer">{t.visit} <LuArrowUpRight /></a></div>
                 </div>
               </article>;
             })}
@@ -426,7 +429,7 @@ export default function Home() {
       </section>
 
       <section className="about-section section-shell" id="about">
-        <div className="portrait-card" aria-hidden="true"><div className="portrait-grid" /><div className="monogram">DR</div><span>DESIGN × ENGINEERING</span></div>
+        <div className="portrait-card" aria-hidden="true"><div className="portrait-grid" /><div className="monogram">DR</div><span>DESIGN / ENGINEERING</span></div>
         <div className="about-copy"><p className="section-kicker">{t.aboutKicker}</p><h2>{t.aboutTitle}</h2><p>{t.aboutText}</p><p>{t.aboutNote}</p><div className="role-list"><small>{t.lookingFor}</small>{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
         <div className="process"><span className="vertical-label">PROCESS / 01—07</span>{t.process.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span></div>)}</div>
       </section>
@@ -439,23 +442,23 @@ export default function Home() {
       </section>
 
       <section className="credentials section-shell">
-        <article><p className="section-kicker">{t.education}</p><span className="credential-icon">⌁</span><h3>{t.degree}</h3><p>{t.university}</p></article>
+        <article><p className="section-kicker">{t.education}</p><span className="credential-icon"><LuGraduationCap /></span><h3>{t.degree}</h3><p>{t.university}</p></article>
         <article><p className="section-kicker">{t.languagesTitle}</p><div className="language-levels">{t.languages.map(([name, level], index) => <div key={name}><span><b>{name}</b><small>{level}</small></span><i style={{ "--level": `${[100, 76, 34][index]}%` } as React.CSSProperties} /></div>)}</div></article>
       </section>
 
-      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><p className="section-kicker">{t.contactKicker}</p><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span>↗</span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a href={SOCIAL.github} target="_blank" rel="noreferrer">GitHub ↗</a><a href={SOCIAL.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div></div></section>
+      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><p className="section-kicker">{t.contactKicker}</p><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span className="gmail-icon"><SiGmail /></span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a className="github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a></div></div></div></section>
 
       <footer className="section-shell"><a className="wordmark" href="#top">DANYLO<br />RODNAIEV</a><p>Frontend / Full-Stack Developer<br />UI/UX Designer</p><p>Luleå / Norrbotten, Sweden</p><p>© 2026</p></footer>
 
       {activeProject && (() => {
         const project = t.projects[activeProject]; const meta = projectMeta[activeProject];
         return <div className="modal-backdrop" role="presentation" onMouseDown={() => setActiveProject(null)}><article className={`case-modal ${meta.tone}`} role="dialog" aria-modal="true" aria-labelledby="case-title" onMouseDown={(event) => event.stopPropagation()}>
-          <div className="modal-top"><span>{meta.number} / CASE STUDY</span><button autoFocus onClick={() => setActiveProject(null)} aria-label={t.close}>{t.close} ×</button></div>
-          <div className="case-hero"><div><span className={`status ${meta.status}`}>● {t.projectLabels[meta.status]}</span><h2 id="case-title">{project.title}</h2><h3>{project.subtitle}</h3><p>{project.intro}</p><div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectMockup project={activeProject} /></div>
+          <div className="modal-top"><span>{meta.number} / CASE STUDY</span><button autoFocus onClick={() => setActiveProject(null)} aria-label={t.close}>{t.close} <LuX /></button></div>
+          <div className="case-hero"><div><span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span><h2 id="case-title">{project.title}</h2><h3>{project.subtitle}</h3><p>{project.intro}</p><div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectMockup project={activeProject} /></div>
           <section className="case-section split"><div><p className="section-kicker">01 / {t.overview}</p><h3>{t.challenge}</h3></div><p>{project.challenge}</p></section>
-          <section className="case-section"><p className="section-kicker">02 / {t.productFlow}</p><div className="flow-list">{project.flow.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span>{index < project.flow.length - 1 && <i>→</i>}</div>)}</div></section>
+          <section className="case-section"><p className="section-kicker">02 / {t.productFlow}</p><div className="flow-list">{project.flow.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span>{index < project.flow.length - 1 && <i><LuArrowRight /></i>}</div>)}</div></section>
           <section className="case-details">{project.details.map(([title, text], index) => <article key={title}><span>0{index + 3}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
-          <div className="case-footer"><a href={meta.url} target="_blank" rel="noreferrer">{t.visit} ↗</a><button onClick={() => setActiveProject(null)}>{t.close}</button></div>
+          <div className="case-footer"><a href={meta.url} target="_blank" rel="noreferrer">{t.visit} <LuArrowUpRight /></a><button onClick={() => setActiveProject(null)}>{t.close}</button></div>
         </article></div>;
       })()}
     </main>
