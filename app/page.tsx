@@ -328,6 +328,7 @@ export default function Home() {
   const [language, setLanguage] = useState<Language>("ru");
   const [filter, setFilter] = useState<Filter>("all");
   const [activeProject, setActiveProject] = useState<ProjectKey | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const t = content[language];
 
@@ -345,28 +346,46 @@ export default function Home() {
 
   useEffect(() => {
     document.documentElement.lang = language;
-    document.body.style.overflow = activeProject ? "hidden" : "";
-    const onKey = (event: KeyboardEvent) => event.key === "Escape" && setActiveProject(null);
+    document.body.style.overflow = activeProject || mobileMenuOpen ? "hidden" : "";
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveProject(null);
+        setMobileMenuOpen(false);
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => { document.body.style.overflow = ""; window.removeEventListener("keydown", onKey); };
-  }, [language, activeProject]);
+  }, [language, activeProject, mobileMenuOpen]);
+
+  useEffect(() => {
+    const closeDesktopMenu = () => window.innerWidth > 1120 && setMobileMenuOpen(false);
+    window.addEventListener("resize", closeDesktopMenu);
+    return () => window.removeEventListener("resize", closeDesktopMenu);
+  }, []);
 
   return (
     <main id="top">
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Danylo Rodnaiev — home">DANYLO<br />RODNAIEV</a>
-        <nav aria-label="Primary navigation">
+        <nav className="desktop-nav" aria-label="Primary navigation">
           <a href="#work">{t.nav.work}</a><a href="#about">{t.nav.about}</a><a href="#skills">{t.nav.skills}</a><a href="#contact">{t.nav.contact}</a>
         </nav>
         <div className="header-right">
           <a className="social-link" href={SOCIAL.github} target="_blank" rel="noreferrer">GitHub ↗</a>
           <a className="social-link linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a>
           <div className="language-switcher" aria-label="Language selector">
-            {(["ru", "en", "sv"] as Language[]).map((item) => <button key={item} className={language === item ? "active" : ""} aria-pressed={language === item} onClick={() => setLanguage(item)}>{item.toUpperCase()}</button>)}
+            {(["ru", "en", "sv"] as Language[]).map((item) => <button key={item} className={language === item ? "active" : ""} aria-pressed={language === item} onClick={() => { setLanguage(item); setMobileMenuOpen(false); }}>{item.toUpperCase()}</button>)}
           </div>
+          <button className={`menu-toggle ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={mobileMenuOpen} aria-controls="mobile-navigation" onClick={() => setMobileMenuOpen((open) => !open)}><span /><span /><span /></button>
         </div>
       </header>
+
+      <button className={`mobile-menu-scrim ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label="Close navigation menu" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)} />
+      <nav className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!mobileMenuOpen}>
+        {([["01", "work", t.nav.work], ["02", "about", t.nav.about], ["03", "skills", t.nav.skills], ["04", "contact", t.nav.contact]] as const).map(([number, anchor, label]) => <a key={anchor} href={`#${anchor}`} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)}><small>{number}</small><span>{label}</span><b>↘</b></a>)}
+        <div className="mobile-menu-footer"><span>DANYLO RODNAIEV<br />Luleå / Norrbotten</span><div><a href={SOCIAL.github} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>GitHub ↗</a><a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}>LinkedIn ↗</a></div></div>
+      </nav>
 
       <section className="hero section-shell">
         <div className="hero-copy" key={language}>
