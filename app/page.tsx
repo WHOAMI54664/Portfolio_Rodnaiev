@@ -575,7 +575,7 @@ export default function Home() {
       <section className="skills-section" id="skills">
         <div className="section-shell"><div className="section-heading compact"><div><p className="section-kicker">{t.skillsKicker}</p><h2>{t.skillsTitle}</h2></div></div><div className="skills-grid">
           {t.skillGroups.map(([name, skills], index) => <article className={`skill-card skill-${index + 1}`} key={name}><div className="skill-index">0{index + 1}</div><h3>{name}</h3><div>{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>)}
-          <article className="ai-card"><div className="ai-orb">AI</div><div><h3>{t.aiTitle}</h3><p>{t.aiText}</p></div><code>human_judgment = true;</code></article>
+          <article className="ai-card"><div className="ai-orb">AI</div><div className="ai-copy"><h3>{t.aiTitle}</h3><p>{t.aiText}</p><code>human_judgment = true;</code></div></article>
         </div></div>
       </section>
 
