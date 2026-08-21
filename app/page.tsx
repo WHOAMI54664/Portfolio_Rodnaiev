@@ -83,10 +83,13 @@ const content = {
     },
     aboutKicker: "Обо мне",
     aboutTitle: "Мне нравится работать на стыке дизайна и инженерии.",
-    aboutText: "Мой опыт объединяет computer science, UI/UX и практическую продуктовую разработку. Я превращаю идею в исследование, пользовательский сценарий, интерфейс, frontend, backend и production-решение.",
-    aboutNote: "Особенно интересны команды, где разработчики участвуют в продуктовых решениях, а не только реализуют готовые макеты.",
+    aboutText: "Мой опыт объединяет компьютерные науки, UI/UX-дизайн и практическую продуктовую разработку. Я умею взять идею на ранней стадии, разобраться в задаче и превратить её в понятный, работающий цифровой продукт.",
+    aboutNote: "Мне особенно интересны команды, где разработчики участвуют в исследовании и продуктовых решениях, а не только реализуют готовые макеты.",
     lookingFor: "Ищу возможности",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
+    processLabel: "ПРОЦЕСС",
+    processTitle: "От идеи до работающего продукта",
+    processIntro: "Сначала понимаю контекст и потребности пользователя, затем проектирую опыт и довожу решение до production.",
     process: ["Исследование", "User flow", "Интерфейс", "Прототип", "Frontend", "Backend", "Production"],
     skillsKicker: "Технологии",
     skillsTitle: "Инструменты для полного продуктового цикла",
@@ -184,6 +187,9 @@ const content = {
     aboutNote: "I’m especially interested in teams where developers participate in product decisions rather than only implementing predefined screens.",
     lookingFor: "Looking for",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
+    processLabel: "PROCESS",
+    processTitle: "From an idea to a working product",
+    processIntro: "I start with the context and user needs, then design the experience and carry the solution into production.",
     process: ["Research", "User flow", "Interface", "Prototype", "Frontend", "Backend", "Production"],
     skillsKicker: "Technologies",
     skillsTitle: "Tools for the complete product cycle",
@@ -281,6 +287,9 @@ const content = {
     aboutNote: "Jag är särskilt intresserad av team där utvecklare deltar i produktbeslut och inte bara implementerar färdiga skisser.",
     lookingFor: "Söker roller som",
     roles: ["Frontendutvecklare", "Fullstackutvecklare", "Produktutvecklare", "UI Engineer"],
+    processLabel: "PROCESS",
+    processTitle: "Från idé till fungerande produkt",
+    processIntro: "Jag börjar med sammanhanget och användarens behov, designar upplevelsen och för lösningen hela vägen till produktion.",
     process: ["Research", "Användarflöde", "Gränssnitt", "Prototyp", "Frontend", "Backend", "Produktion"],
     skillsKicker: "Teknik",
     skillsTitle: "Verktyg för hela produktcykeln",
@@ -430,8 +439,17 @@ export default function Home() {
 
       <section className="about-section section-shell" id="about">
         <div className="portrait-card" aria-hidden="true"><div className="portrait-grid" /><div className="monogram">DR</div><span>DESIGN / ENGINEERING</span></div>
-        <div className="about-copy"><p className="section-kicker">{t.aboutKicker}</p><h2>{t.aboutTitle}</h2><p>{t.aboutText}</p><p>{t.aboutNote}</p><div className="role-list"><small>{t.lookingFor}</small>{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
-        <div className="process"><span className="vertical-label">PROCESS / 01—07</span>{t.process.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span></div>)}</div>
+        <div className="about-copy">
+          <p className="section-kicker">{t.aboutKicker}</p>
+          <h2>{t.aboutTitle}</h2>
+          <p className="about-lead">{t.aboutText}</p>
+          <div className="about-note"><p>{t.aboutNote}</p></div>
+          <div className="role-panel"><small>{t.lookingFor}</small><div className="role-list">{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
+        </div>
+        <div className="process-panel">
+          <div className="process-heading"><small>{t.processLabel} / 01—07</small><h3>{t.processTitle}</h3><p>{t.processIntro}</p></div>
+          <div className="process">{t.process.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span></div>)}</div>
+        </div>
       </section>
 
       <section className="skills-section" id="skills">
