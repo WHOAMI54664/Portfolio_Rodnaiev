@@ -3,8 +3,8 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { FaLinkedin } from "react-icons/fa6";
-import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuDownload, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
-import { SiFigma, SiGithub, SiGmail, SiNextdotjs } from "react-icons/si";
+import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuDownload, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
+import { SiGithub, SiGmail } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
 type ProjectKey = "ostrov" | "laboris" | "nordic";
@@ -432,9 +432,6 @@ export default function Home() {
     const root = document.documentElement;
     const motionSelector = [
       ".hero-copy > *",
-      ".hero-visual .code-window",
-      ".hero-visual .floating-card",
-      ".hero-visual .tech-pill",
       ".section-heading > *",
       ".project-card",
       ".project-copy > *",
@@ -499,45 +496,6 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    const heroVisual = document.querySelector<HTMLElement>(".hero-visual");
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!heroVisual || reducedMotion || !finePointer) return;
-
-    let frame = 0;
-    const resetParallax = () => {
-      heroVisual.style.setProperty("--pointer-x", "0px");
-      heroVisual.style.setProperty("--pointer-y", "0px");
-      heroVisual.style.setProperty("--pointer-x-reverse", "0px");
-      heroVisual.style.setProperty("--pointer-y-reverse", "0px");
-      heroVisual.style.setProperty("--pointer-x-soft", "0px");
-      heroVisual.style.setProperty("--pointer-y-soft", "0px");
-    };
-    const moveParallax = (event: PointerEvent) => {
-      const bounds = heroVisual.getBoundingClientRect();
-      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        heroVisual.style.setProperty("--pointer-x", `${x * 16}px`);
-        heroVisual.style.setProperty("--pointer-y", `${y * 13}px`);
-        heroVisual.style.setProperty("--pointer-x-reverse", `${x * -20}px`);
-        heroVisual.style.setProperty("--pointer-y-reverse", `${y * -16}px`);
-        heroVisual.style.setProperty("--pointer-x-soft", `${x * 9}px`);
-        heroVisual.style.setProperty("--pointer-y-soft", `${y * 7}px`);
-      });
-    };
-
-    heroVisual.addEventListener("pointermove", moveParallax);
-    heroVisual.addEventListener("pointerleave", resetParallax);
-    return () => {
-      cancelAnimationFrame(frame);
-      heroVisual.removeEventListener("pointermove", moveParallax);
-      heroVisual.removeEventListener("pointerleave", resetParallax);
-    };
-  }, []);
-
   return (
     <main id="top">
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
@@ -569,12 +527,6 @@ export default function Home() {
           <TypewriterText className="hero-detail" text={t.heroDetail} delay={420 + t.heroIntro.length * 18} speed={12} />
           <div className="hero-actions"><a className="primary-button" href="#work">{t.viewWork}<LuArrowDown /></a><a className="secondary-button" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a></div>
           <div className="location-line"><span><LuMapPin /></span><p><b>{t.location}</b><small>{t.availability}</small></p></div>
-        </div>
-        <div className="hero-visual" aria-label="Interactive developer workspace illustration">
-          <div className="hero-grid" /><div className="orb orb-one" /><div className="orb orb-two" />
-          <div className="code-window"><div className="window-top"><i /><i /><i /><span>portfolio.tsx</span><small><i className="live-dot" /> LIVE</small></div><pre><code><b>const</b> developer = {`{`}<br />  craft: <mark>&quot;full-stack&quot;</mark>,<br />  design: <mark>true</mark>,<br />  ships: <mark>&quot;to production&quot;</mark>,<br />  location: <mark>&quot;Sweden&quot;</mark><br />{`}`};</code></pre><div className="code-status"><LuCircleCheck /> Type-safe build</div></div>
-          <div className="floating-card"><b>03</b><span>products<br />designed & built</span></div>
-          <div className="tech-pill pill-one"><SiNextdotjs /> NEXT.JS</div><div className="tech-pill pill-two"><SiFigma /> FIGMA</div>
         </div>
       </section>
 
