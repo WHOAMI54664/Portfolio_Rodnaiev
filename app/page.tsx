@@ -375,6 +375,118 @@ export default function Home() {
     return () => window.removeEventListener("resize", closeDesktopMenu);
   }, []);
 
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const root = document.documentElement;
+    const motionSelector = [
+      ".hero-copy > *",
+      ".hero-visual .code-window",
+      ".hero-visual .floating-card",
+      ".hero-visual .tech-pill",
+      ".section-heading > *",
+      ".project-card",
+      ".project-copy > *",
+      ".tags > span",
+      ".about-section > .portrait-card",
+      ".about-copy > *",
+      ".role-list > span",
+      ".process-heading > *",
+      ".process > div",
+      ".skills-grid > article",
+      ".skill-card > div:last-child > span",
+      ".credentials > article",
+      ".language-levels > div",
+      ".contact-inner > div > *",
+      ".contact-actions a",
+      "footer > *",
+      ".case-hero > *",
+      ".case-section > *",
+      ".flow-list > div",
+      ".case-details > article",
+    ].join(",");
+
+    root.classList.add("motion-enabled");
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("motion-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+
+    const registerMotion = (scope: ParentNode) => {
+      const elements: HTMLElement[] = [];
+      if (scope instanceof HTMLElement && scope.matches(motionSelector)) elements.push(scope);
+      elements.push(...Array.from(scope.querySelectorAll<HTMLElement>(motionSelector)));
+
+      elements.forEach((element) => {
+        if (element.dataset.motionRegistered) return;
+        element.dataset.motionRegistered = "true";
+        element.classList.add("motion-item");
+        const siblings = element.parentElement ? Array.from(element.parentElement.children) : [];
+        const order = Math.max(0, siblings.indexOf(element));
+        element.style.setProperty("--motion-delay", `${Math.min(order, 7) * 55}ms`);
+        element.style.setProperty("--motion-distance", element.matches(".tags > span, .role-list > span, .skill-card > div:last-child > span") ? "10px" : "24px");
+        revealObserver.observe(element);
+      });
+    };
+
+    registerMotion(document);
+    const mutationObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => mutation.addedNodes.forEach((node) => {
+        if (node instanceof HTMLElement) registerMotion(node);
+      }));
+    });
+    mutationObserver.observe(document.querySelector("main") ?? document.body, { childList: true, subtree: true });
+
+    return () => {
+      revealObserver.disconnect();
+      mutationObserver.disconnect();
+      root.classList.remove("motion-enabled");
+    };
+  }, []);
+
+  useEffect(() => {
+    const heroVisual = document.querySelector<HTMLElement>(".hero-visual");
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!heroVisual || reducedMotion || !finePointer) return;
+
+    let frame = 0;
+    const resetParallax = () => {
+      heroVisual.style.setProperty("--pointer-x", "0px");
+      heroVisual.style.setProperty("--pointer-y", "0px");
+      heroVisual.style.setProperty("--pointer-x-reverse", "0px");
+      heroVisual.style.setProperty("--pointer-y-reverse", "0px");
+      heroVisual.style.setProperty("--pointer-x-soft", "0px");
+      heroVisual.style.setProperty("--pointer-y-soft", "0px");
+    };
+    const moveParallax = (event: PointerEvent) => {
+      const bounds = heroVisual.getBoundingClientRect();
+      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        heroVisual.style.setProperty("--pointer-x", `${x * 16}px`);
+        heroVisual.style.setProperty("--pointer-y", `${y * 13}px`);
+        heroVisual.style.setProperty("--pointer-x-reverse", `${x * -20}px`);
+        heroVisual.style.setProperty("--pointer-y-reverse", `${y * -16}px`);
+        heroVisual.style.setProperty("--pointer-x-soft", `${x * 9}px`);
+        heroVisual.style.setProperty("--pointer-y-soft", `${y * 7}px`);
+      });
+    };
+
+    heroVisual.addEventListener("pointermove", moveParallax);
+    heroVisual.addEventListener("pointerleave", resetParallax);
+    return () => {
+      cancelAnimationFrame(frame);
+      heroVisual.removeEventListener("pointermove", moveParallax);
+      heroVisual.removeEventListener("pointerleave", resetParallax);
+    };
+  }, []);
+
   return (
     <main id="top">
       <div className="scroll-progress" style={{ width: `${scrollProgress}%` }} />
