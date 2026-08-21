@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { FaLinkedin } from "react-icons/fa6";
-import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
+import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCircleCheck, LuDownload, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
 import { SiFigma, SiGithub, SiGmail, SiNextdotjs } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
@@ -12,7 +12,7 @@ type ProjectStatus = "progress" | "completed";
 type Filter = "all" | ProjectStatus;
 
 const SOCIAL = {
-  github: "https://github.com/",
+  github: "https://github.com/WHOAMI54664",
   linkedin: "https://www.linkedin.com/",
 };
 
@@ -84,8 +84,10 @@ const content = {
     },
     aboutKicker: "Обо мне",
     aboutTitle: "Мне нравится работать на стыке дизайна и инженерии.",
-    aboutText: "Мой опыт объединяет компьютерные науки, UI/UX-дизайн и практическую продуктовую разработку. Я умею взять идею на ранней стадии, разобраться в задаче и превратить её в понятный, работающий цифровой продукт.",
+    aboutText: "Я продуктовый Frontend / Full-Stack разработчик и UI/UX-дизайнер из Швеции. Проектирую понятные интерфейсы и довожу продукты от идеи до production.",
     aboutNote: "Мне особенно интересны команды, где разработчики участвуют в исследовании и продуктовых решениях, а не только реализуют готовые макеты.",
+    photoAlt: "Портрет Данила Роднаева",
+    downloadCv: "Скачать CV (PDF)",
     lookingFor: "Ищу возможности",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
     processLabel: "ПРОЦЕСС",
@@ -96,7 +98,8 @@ const content = {
     skillsTitle: "Инструменты для полного продуктового цикла",
     skillGroups: [
       ["Frontend", ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Shadcn/UI"]],
-      ["Backend & Data", ["Node.js", "NestJS", "PostgreSQL", "Prisma", "Supabase", "Redis", "REST APIs"]],
+      ["Backend", ["Node.js", "NestJS", "REST APIs", "BullMQ"]],
+      ["Database", ["PostgreSQL", "Prisma", "Supabase", "Redis", "S3 Storage"]],
       ["Design & UI/UX", ["Figma", "Wireframing", "Prototyping", "Design Systems", "Responsive Design", "User Flows"]],
       ["Infrastructure", ["Git", "Docker", "Vercel", "Cloudflare", "Sentry", "OpenTelemetry"]],
       ["Mobile", ["Swift", "SwiftUI"]],
@@ -184,8 +187,10 @@ const content = {
     },
     aboutKicker: "About me",
     aboutTitle: "I like working between design and engineering.",
-    aboutText: "My background combines computer science, UI/UX and hands-on product development. I turn an idea into research, a user flow, an interface, frontend, backend and a production solution.",
+    aboutText: "I’m a product-oriented Frontend / Full-Stack Developer and UI/UX Designer based in Sweden. I design clear interfaces and take products from idea to production.",
     aboutNote: "I’m especially interested in teams where developers participate in product decisions rather than only implementing predefined screens.",
+    photoAlt: "Portrait of Danylo Rodnaiev",
+    downloadCv: "Download CV (PDF)",
     lookingFor: "Looking for",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
     processLabel: "PROCESS",
@@ -196,7 +201,8 @@ const content = {
     skillsTitle: "Tools for the complete product cycle",
     skillGroups: [
       ["Frontend", ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Shadcn/UI"]],
-      ["Backend & Data", ["Node.js", "NestJS", "PostgreSQL", "Prisma", "Supabase", "Redis", "REST APIs"]],
+      ["Backend", ["Node.js", "NestJS", "REST APIs", "BullMQ"]],
+      ["Database", ["PostgreSQL", "Prisma", "Supabase", "Redis", "S3 Storage"]],
       ["Design & UI/UX", ["Figma", "Wireframing", "Prototyping", "Design Systems", "Responsive Design", "User Flows"]],
       ["Infrastructure", ["Git", "Docker", "Vercel", "Cloudflare", "Sentry", "OpenTelemetry"]],
       ["Mobile", ["Swift", "SwiftUI"]],
@@ -284,8 +290,10 @@ const content = {
     },
     aboutKicker: "Om mig",
     aboutTitle: "Jag trivs i mötet mellan design och teknik.",
-    aboutText: "Min bakgrund kombinerar datavetenskap, UI/UX och praktisk produktutveckling. Jag förvandlar en idé till research, användarflöde, gränssnitt, frontend, backend och en produktionslösning.",
+    aboutText: "Jag är en produktorienterad Frontend / Fullstack-utvecklare och UI/UX-designer baserad i Sverige. Jag skapar tydliga gränssnitt och tar produkter från idé till produktion.",
     aboutNote: "Jag är särskilt intresserad av team där utvecklare deltar i produktbeslut och inte bara implementerar färdiga skisser.",
+    photoAlt: "Porträtt av Danylo Rodnaiev",
+    downloadCv: "Ladda ner CV (PDF)",
     lookingFor: "Söker roller som",
     roles: ["Frontendutvecklare", "Fullstackutvecklare", "Produktutvecklare", "UI Engineer"],
     processLabel: "PROCESS",
@@ -296,7 +304,8 @@ const content = {
     skillsTitle: "Verktyg för hela produktcykeln",
     skillGroups: [
       ["Frontend", ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Shadcn/UI"]],
-      ["Backend och data", ["Node.js", "NestJS", "PostgreSQL", "Prisma", "Supabase", "Redis", "REST APIs"]],
+      ["Backend", ["Node.js", "NestJS", "REST APIs", "BullMQ"]],
+      ["Databas", ["PostgreSQL", "Prisma", "Supabase", "Redis", "S3 Storage"]],
       ["Design och UI/UX", ["Figma", "Wireframing", "Prototyping", "Design Systems", "Responsive Design", "User Flows"]],
       ["Infrastruktur", ["Git", "Docker", "Vercel", "Cloudflare", "Sentry", "OpenTelemetry"]],
       ["Mobil", ["Swift", "SwiftUI"]],
@@ -342,6 +351,40 @@ function ProjectMockup({ project }: { project: ProjectKey }) {
     </div>
     <span className="site-preview-label"><LuArrowUpRight /> LIVE HOMEPAGE</span>
   </div>;
+}
+
+function TypewriterText({ text, className, delay, speed }: { text: string; className: string; delay: number; speed: number }) {
+  const [visibleText, setVisibleText] = useState("");
+  const [complete, setComplete] = useState(false);
+
+  useEffect(() => {
+    let characterTimer: number | undefined;
+    let index = 0;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const typeNextCharacter = () => {
+      if (reducedMotion) {
+        setVisibleText(text);
+        setComplete(true);
+        return;
+      }
+      index += 1;
+      setVisibleText(text.slice(0, index));
+      if (index < text.length) characterTimer = window.setTimeout(typeNextCharacter, speed);
+      else setComplete(true);
+    };
+
+    const startTimer = window.setTimeout(typeNextCharacter, reducedMotion ? 0 : delay);
+    return () => {
+      window.clearTimeout(startTimer);
+      if (characterTimer) window.clearTimeout(characterTimer);
+    };
+  }, [delay, speed, text]);
+
+  return <p className={`${className} typewriter-text ${complete ? "complete" : ""}`} aria-label={text}>
+    <span className="typewriter-measure" aria-hidden="true">{text}</span>
+    <span className="typewriter-output" aria-hidden="true">{visibleText}<i className="typewriter-cursor" /></span>
+  </p>;
 }
 
 export default function Home() {
@@ -521,16 +564,15 @@ export default function Home() {
 
       <section className="hero section-shell">
         <div className="hero-copy" key={language}>
-          <p className="eyebrow"><span />{t.statusLine}</p>
           <h1>{t.heroTitle}<br /><em>{t.heroAccent}</em></h1>
-          <p className="hero-intro">{t.heroIntro}</p>
-          <p className="hero-detail">{t.heroDetail}</p>
+          <TypewriterText className="hero-intro" text={t.heroIntro} delay={180} speed={18} />
+          <TypewriterText className="hero-detail" text={t.heroDetail} delay={420 + t.heroIntro.length * 18} speed={12} />
           <div className="hero-actions"><a className="primary-button" href="#work">{t.viewWork}<LuArrowDown /></a><a className="secondary-button" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a></div>
           <div className="location-line"><span><LuMapPin /></span><p><b>{t.location}</b><small>{t.availability}</small></p></div>
         </div>
         <div className="hero-visual" aria-label="Interactive developer workspace illustration">
           <div className="hero-grid" /><div className="orb orb-one" /><div className="orb orb-two" />
-          <div className="code-window"><div className="window-top"><i /><i /><i /><span>portfolio.tsx</span><small><i className="live-dot" /> LIVE</small></div><pre><code><b>const</b> developer = {`{`}<br />  craft: <mark>"full-stack"</mark>,<br />  design: <mark>true</mark>,<br />  ships: <mark>"to production"</mark>,<br />  location: <mark>"Sweden"</mark><br />{`}`};</code></pre><div className="code-status"><LuCircleCheck /> Type-safe build</div></div>
+          <div className="code-window"><div className="window-top"><i /><i /><i /><span>portfolio.tsx</span><small><i className="live-dot" /> LIVE</small></div><pre><code><b>const</b> developer = {`{`}<br />  craft: <mark>&quot;full-stack&quot;</mark>,<br />  design: <mark>true</mark>,<br />  ships: <mark>&quot;to production&quot;</mark>,<br />  location: <mark>&quot;Sweden&quot;</mark><br />{`}`};</code></pre><div className="code-status"><LuCircleCheck /> Type-safe build</div></div>
           <div className="floating-card"><b>03</b><span>products<br />designed & built</span></div>
           <div className="tech-pill pill-one"><SiNextdotjs /> NEXT.JS</div><div className="tech-pill pill-two"><SiFigma /> FIGMA</div>
         </div>
@@ -538,7 +580,7 @@ export default function Home() {
 
       <section className="work-section" id="work">
         <div className="section-shell">
-          <div className="section-heading"><div><p className="section-kicker">{t.selectedKicker}</p><h2>{t.selectedTitle}</h2><p>{t.selectedIntro}</p></div><div className="project-filters" aria-label="Project status filter">{(["all", "progress", "completed"] as Filter[]).map((item) => <button key={item} className={filter === item ? "active" : ""} aria-pressed={filter === item} onClick={() => setFilter(item)}>{t.filters[item]}</button>)}</div></div>
+          <div className="section-heading"><div><h2>{t.selectedTitle}</h2><p>{t.selectedIntro}</p></div><div className="project-filters" aria-label="Project status filter">{(["all", "progress", "completed"] as Filter[]).map((item) => <button key={item} className={filter === item ? "active" : ""} aria-pressed={filter === item} onClick={() => setFilter(item)}>{t.filters[item]}</button>)}</div></div>
           <div className="project-list">
             {visibleProjects.map((key) => {
               const project = t.projects[key]; const meta = projectMeta[key];
@@ -558,12 +600,11 @@ export default function Home() {
       </section>
 
       <section className="about-section section-shell" id="about">
-        <div className="portrait-card" aria-hidden="true"><div className="portrait-grid" /><div className="monogram">DR</div><span>DESIGN / ENGINEERING</span></div>
+        <div className="portrait-card"><Image src="/danylo-rodnaiev-cutout-v3.png" alt={t.photoAlt} fill sizes="(max-width: 900px) 100vw, 34vw" /></div>
         <div className="about-copy">
-          <p className="section-kicker">{t.aboutKicker}</p>
           <h2>{t.aboutTitle}</h2>
           <p className="about-lead">{t.aboutText}</p>
-          <div className="about-note"><p>{t.aboutNote}</p></div>
+          <a className="cv-button" href="/Danylo-Rodnaiev-CV.pdf" download="Danylo-Rodnaiev-CV.pdf"><LuDownload />{t.downloadCv}</a>
           <div className="role-panel"><small>{t.lookingFor}</small><div className="role-list">{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
         </div>
         <div className="process-panel">
@@ -573,7 +614,7 @@ export default function Home() {
       </section>
 
       <section className="skills-section" id="skills">
-        <div className="section-shell"><div className="section-heading compact"><div><p className="section-kicker">{t.skillsKicker}</p><h2>{t.skillsTitle}</h2></div></div><div className="skills-grid">
+        <div className="section-shell"><div className="section-heading compact"><div><h2>{t.skillsTitle}</h2></div></div><div className="skills-grid">
           {t.skillGroups.map(([name, skills], index) => <article className={`skill-card skill-${index + 1}`} key={name}><div className="skill-index">0{index + 1}</div><h3>{name}</h3><div>{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>)}
           <article className="ai-card"><div className="ai-orb">AI</div><div className="ai-copy"><h3>{t.aiTitle}</h3><p>{t.aiText}</p><code>human_judgment = true;</code></div></article>
         </div></div>
@@ -584,14 +625,14 @@ export default function Home() {
         <article><p className="section-kicker">{t.languagesTitle}</p><div className="language-levels">{t.languages.map(([name, level], index) => <div key={name}><span><b>{name}</b><small>{level}</small></span><i style={{ "--level": `${[100, 76, 34][index]}%` } as React.CSSProperties} /></div>)}</div></article>
       </section>
 
-      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><p className="section-kicker">{t.contactKicker}</p><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span className="gmail-icon"><SiGmail /></span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a className="github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a></div></div></div></section>
+      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span className="gmail-icon"><SiGmail /></span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a className="github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a></div></div></div></section>
 
       <footer className="section-shell"><a className="wordmark" href="#top">DANYLO<br />RODNAIEV</a><p>Frontend / Full-Stack Developer<br />UI/UX Designer</p><p>Luleå / Norrbotten, Sweden</p><p>© 2026</p></footer>
 
       {activeProject && (() => {
         const project = t.projects[activeProject]; const meta = projectMeta[activeProject];
-        return <div className="modal-backdrop" role="presentation" onMouseDown={() => setActiveProject(null)}><article className={`case-modal ${meta.tone}`} role="dialog" aria-modal="true" aria-labelledby="case-title" onMouseDown={(event) => event.stopPropagation()}>
-          <div className="modal-top"><span>{meta.number} / CASE STUDY</span><button autoFocus onClick={() => setActiveProject(null)} aria-label={t.close}>{t.close} <LuX /></button></div>
+        return <div className="modal-backdrop"><button className="modal-dismiss" onClick={() => setActiveProject(null)} aria-label={t.close} /><article className={`case-modal ${meta.tone}`} role="dialog" aria-modal="true" aria-labelledby="case-title">
+          <div className="modal-top"><span>{meta.number} / CASE STUDY</span><button onClick={() => setActiveProject(null)} aria-label={t.close}>{t.close} <LuX /></button></div>
           <div className="case-hero"><div><span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span><h2 id="case-title">{project.title}</h2><h3>{project.subtitle}</h3><p>{project.intro}</p><div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectMockup project={activeProject} /></div>
           <section className="case-section split"><div><p className="section-kicker">01 / {t.overview}</p><h3>{t.challenge}</h3></div><p>{project.challenge}</p></section>
           <section className="case-section"><p className="section-kicker">02 / {t.productFlow}</p><div className="flow-list">{project.flow.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span>{index < project.flow.length - 1 && <i><LuArrowRight /></i>}</div>)}</div></section>

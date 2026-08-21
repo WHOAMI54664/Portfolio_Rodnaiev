@@ -1,10 +1,19 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const lufga = localFont({
+  variable: "--font-lufga",
+  display: "swap",
+  src: [
+    { path: "./fonts/Lufga-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/Lufga-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/Lufga-SemiBold.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/Lufga-Bold.woff2", weight: "700", style: "normal" },
+    { path: "./fonts/Lufga-ExtraBold.woff2", weight: "800", style: "normal" },
+    { path: "./fonts/Lufga-Black.woff2", weight: "900", style: "normal" },
+  ],
 });
 
 const geistMono = Geist_Mono({
@@ -39,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lufga.variable} ${geistMono.variable} antialiased`}
       >
         {children}
       </body>
