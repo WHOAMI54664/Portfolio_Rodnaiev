@@ -336,20 +336,20 @@ const projectMeta: Record<ProjectKey, { status: ProjectStatus; url: string; stac
 
 const projectKeys = Object.keys(projectMeta) as ProjectKey[];
 
-const projectCovers: Record<ProjectKey, { src: string; host: string }> = {
-  ostrov: { src: "/projects/ostrovua-home.png", host: "ostrovua.net" },
-  laboris: { src: "/projects/laboris-home.png", host: "laboris.dev" },
-  nordic: { src: "/projects/nordic-eatery-home.png", host: "nordiceatery.se" },
+const projectCovers: Record<ProjectKey, { src: string }> = {
+  ostrov: { src: "/projects/ostrovua-home.png" },
+  laboris: { src: "/projects/laboris-home.png" },
+  nordic: { src: "/projects/nordic-eatery-home.png" },
 };
 
 function ProjectMockup({ project }: { project: ProjectKey }) {
   const cover = projectCovers[project];
   return <div className={`mockup site-preview ${project}`} aria-hidden="true">
-    <div className="site-preview-window">
-      <div className="site-preview-bar"><span><i /><i /><i /></span><b>{cover.host}</b></div>
-      <div className="site-preview-image"><Image src={cover.src} alt="" fill sizes="(max-width: 820px) 94vw, 50vw" /></div>
+    <div className="ipad-frame">
+      <i className="ipad-camera" />
+      <i className="ipad-button" />
+      <div className="ipad-screen"><Image src={cover.src} alt="" fill sizes="(max-width: 820px) 94vw, 50vw" /></div>
     </div>
-    <span className="site-preview-label"><LuArrowUpRight /> LIVE HOMEPAGE</span>
   </div>;
 }
 
