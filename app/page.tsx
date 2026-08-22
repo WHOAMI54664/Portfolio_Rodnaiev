@@ -537,7 +537,7 @@ export default function Home() {
             {visibleProjects.map((key) => {
               const project = t.projects[key]; const meta = projectMeta[key];
               return <article className={`project-card ${meta.tone}`} key={`${language}-${key}`}>
-                <div className="project-visual"><span className="project-number">{meta.number}</span><ProjectMockup project={key} /></div>
+                <div className="project-visual"><ProjectMockup project={key} /></div>
                 <div className="project-copy">
                   <span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span>
                   <h3>{project.title}</h3><h4>{project.subtitle}</h4><p>{project.description}</p>
