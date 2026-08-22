@@ -388,7 +388,7 @@ function TypewriterText({ text, className, delay, speed }: { text: string; class
 }
 
 export default function Home() {
-  const [language, setLanguage] = useState<Language>("ru");
+  const [language, setLanguage] = useState<Language>("en");
   const [filter, setFilter] = useState<Filter>("all");
   const [activeProject, setActiveProject] = useState<ProjectKey | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
