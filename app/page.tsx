@@ -358,6 +358,7 @@ const projectMeta: Record<ProjectKey, { status: ProjectStatus; url: string; stac
 const projectKeys = Object.keys(projectMeta) as ProjectKey[];
 
 const PROCESS_ICONS = [LuSearch, LuRoute, LuLayoutTemplate, LuMousePointerClick, LuCode, LuDatabase, LuRocket] as const;
+const SKILL_ICONS = [LuLayoutTemplate, LuCode, LuDatabase, LuMousePointerClick, LuRocket, LuRoute] as const;
 
 const projectCovers: Record<ProjectKey, { src: string }> = {
   ostrov: { src: "/projects/ostrovua-home.png" },
@@ -465,7 +466,7 @@ export default function Home() {
       ".process-heading > *",
       ".process-card",
       ".skills-grid > article",
-      ".skill-card > div:last-child > span",
+      ".skill-tags > span",
       ".credentials > article",
       ".language-levels > div",
       ".contact-inner > div > *",
@@ -499,7 +500,7 @@ export default function Home() {
         const siblings = element.parentElement ? Array.from(element.parentElement.children) : [];
         const order = Math.max(0, siblings.indexOf(element));
         element.style.setProperty("--motion-delay", `${Math.min(order, 7) * 55}ms`);
-        element.style.setProperty("--motion-distance", element.matches(".tags > span, .role-list > span, .skill-card > div:last-child > span") ? "10px" : "24px");
+        element.style.setProperty("--motion-distance", element.matches(".tags > span, .role-list > span, .skill-tags > span") ? "10px" : "24px");
         revealObserver.observe(element);
       });
     };
@@ -662,7 +663,15 @@ export default function Home() {
 
       <section className="skills-section" id="skills">
         <div className="section-shell"><div className="section-heading compact"><div><h2>{t.skillsTitle}</h2></div></div><div className="skills-grid">
-          {t.skillGroups.map(([name, skills], index) => <article className={`skill-card skill-${index + 1}`} key={name}><div className="skill-index">0{index + 1}</div><h3>{name}</h3><div>{skills.map((skill) => <span key={skill}>{skill}</span>)}</div></article>)}
+          {t.skillGroups.map(([name, skills], index) => {
+            const SkillIcon = SKILL_ICONS[index] ?? LuCode;
+            return <article className={`skill-card skill-${index + 1}`} key={name}>
+              <span className="skill-icon" aria-hidden="true"><SkillIcon /></span>
+              <h3>{name}</h3>
+              <div className="skill-tags">{skills.map((skill) => <span key={skill}>{skill}</span>)}</div>
+              <span className="skill-plus" aria-hidden="true"><LuPlus /></span>
+            </article>;
+          })}
           <article className="ai-card"><div className="ai-orb">AI</div><div className="ai-copy"><h3>{t.aiTitle}</h3><p>{t.aiText}</p><code>human_judgment = true;</code></div></article>
         </div></div>
       </section>
