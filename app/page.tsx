@@ -89,7 +89,6 @@ const content = {
     downloadCv: "Скачать CV (PDF)",
     lookingFor: "Ищу возможности",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
-    processLabel: "ПРОЦЕСС",
     processTitle: "От идеи до работающего продукта",
     processIntro: "Сначала понимаю контекст и потребности пользователя, затем проектирую опыт и довожу решение до production.",
     process: ["Исследование", "User flow", "Интерфейс", "Прототип", "Frontend", "Backend", "Production"],
@@ -200,7 +199,6 @@ const content = {
     downloadCv: "Download CV (PDF)",
     lookingFor: "Looking for",
     roles: ["Frontend Developer", "Full-Stack Developer", "Product Developer", "UI Engineer"],
-    processLabel: "PROCESS",
     processTitle: "From an idea to a working product",
     processIntro: "I start with the context and user needs, then design the experience and carry the solution into production.",
     process: ["Research", "User flow", "Interface", "Prototype", "Frontend", "Backend", "Production"],
@@ -311,7 +309,6 @@ const content = {
     downloadCv: "Ladda ner CV (PDF)",
     lookingFor: "Söker roller som",
     roles: ["Frontendutvecklare", "Fullstackutvecklare", "Produktutvecklare", "UI Engineer"],
-    processLabel: "PROCESS",
     processTitle: "Från idé till fungerande produkt",
     processIntro: "Jag börjar med sammanhanget och användarens behov, designar upplevelsen och för lösningen hela vägen till produktion.",
     process: ["Research", "Användarflöde", "Gränssnitt", "Prototyp", "Frontend", "Backend", "Produktion"],
@@ -651,11 +648,11 @@ export default function Home() {
           <div className="role-panel"><small>{t.lookingFor}</small><div className="role-list">{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
         </div>
         <div className="process-panel">
-          <div className="process-heading"><div><small>{t.processLabel} / 01—07</small><h3>{t.processTitle}</h3></div><p>{t.processIntro}</p></div>
-          <div className="process" role="region" aria-label={`${t.processLabel}: ${t.processTitle}`}>{t.process.map((step, index) => {
+          <div className="process-heading"><div><h3>{t.processTitle}</h3></div><p>{t.processIntro}</p></div>
+          <div className="process" role="region" aria-label={t.processTitle}>{t.process.map((step, index) => {
             const ProcessIcon = PROCESS_ICONS[index] ?? LuSearch;
             return <article className="process-card" key={step}>
-              <div className="process-card-top"><span className="process-icon"><ProcessIcon /></span><b>{String(index + 1).padStart(2, "0")}</b></div>
+              <div className="process-card-top"><span className="process-icon"><ProcessIcon /></span></div>
               <div><h4>{step}</h4><p>{t.processDetails[index]}</p></div>
               <span className="process-plus" aria-hidden="true"><LuPlus /></span>
             </article>;
