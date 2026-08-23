@@ -31,7 +31,6 @@ const content = {
     selectedTitle: "Продукты, которые я спроектировал и создал",
     selectedIntro: "Здесь дизайн-мышление соединяется с frontend-разработкой, архитектурой и реальными бизнес-задачами.",
     filters: { all: "Все", progress: "В работе", completed: "Завершены" },
-    projectLabels: { progress: "В работе", completed: "Завершён" },
     roleLabel: "Моя роль",
     caseStudy: "Открыть кейс",
     visit: "Открыть сайт",
@@ -134,7 +133,6 @@ const content = {
     selectedTitle: "Products I’ve designed and built",
     selectedIntro: "Work where design thinking meets frontend development, architecture and real business needs.",
     filters: { all: "All", progress: "In progress", completed: "Completed" },
-    projectLabels: { progress: "In progress", completed: "Completed" },
     roleLabel: "My role",
     caseStudy: "View case study",
     visit: "Visit website",
@@ -237,7 +235,6 @@ const content = {
     selectedTitle: "Produkter som jag har designat och byggt",
     selectedIntro: "Arbete där designtänkande möter frontendutveckling, arkitektur och verkliga affärsbehov.",
     filters: { all: "Alla", progress: "Pågående", completed: "Färdiga" },
-    projectLabels: { progress: "Pågående", completed: "Färdigt" },
     roleLabel: "Min roll",
     caseStudy: "Visa fallstudie",
     visit: "Besök webbplatsen",
@@ -605,7 +602,6 @@ export default function Home() {
               return <article className={`project-card ${meta.tone}`} key={`${language}-${key}`}>
                 <div className="project-visual"><ProjectMockup project={key} /></div>
                 <div className="project-copy">
-                  <span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span>
                   <h3>{project.title}</h3><h4>{project.subtitle}</h4><p>{project.description}</p>
                   <div className="role"><small>{t.roleLabel}</small><span>{project.role}</span></div>
                   <div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div>
@@ -651,7 +647,7 @@ export default function Home() {
         const project = t.projects[activeProject]; const meta = projectMeta[activeProject];
         return <div className="modal-backdrop"><button className="modal-dismiss" onClick={() => setActiveProject(null)} aria-label={t.close} /><article className={`case-modal ${meta.tone}`} role="dialog" aria-modal="true" aria-labelledby="case-title">
           <div className="modal-top"><span>{meta.number} / CASE STUDY</span><button onClick={() => setActiveProject(null)} aria-label={t.close}>{t.close} <LuX /></button></div>
-          <div className="case-hero"><div><span className={`status ${meta.status}`}><i /> {t.projectLabels[meta.status]}</span><h2 id="case-title">{project.title}</h2><h3>{project.subtitle}</h3><p>{project.intro}</p><div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectMockup project={activeProject} /></div>
+          <div className="case-hero"><div><h2 id="case-title">{project.title}</h2><h3>{project.subtitle}</h3><p>{project.intro}</p><div className="tags">{meta.stack.map((tag) => <span key={tag}>{tag}</span>)}</div></div><ProjectMockup project={activeProject} /></div>
           <section className="case-section split"><div><p className="section-kicker">01 / {t.overview}</p><h3>{t.challenge}</h3></div><p>{project.challenge}</p></section>
           <section className="case-section"><p className="section-kicker">02 / {t.productFlow}</p><div className="flow-list">{project.flow.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span>{index < project.flow.length - 1 && <i><LuArrowRight /></i>}</div>)}</div></section>
           <section className="case-details">{project.details.map(([title, text], index) => <article key={title}><span>0{index + 3}</span><h3>{title}</h3><p>{text}</p></article>)}</section>
