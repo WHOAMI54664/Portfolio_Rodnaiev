@@ -348,7 +348,7 @@ function ProjectMockup({ project }: { project: ProjectKey }) {
     <div className="ipad-frame">
       <i className="ipad-camera" />
       <i className="ipad-button" />
-      <div className="ipad-screen"><Image src={cover.src} alt="" fill sizes="(max-width: 820px) 94vw, 50vw" /></div>
+      <div className="ipad-screen"><Image src={cover.src} alt="" fill loading="eager" sizes="(max-width: 820px) 94vw, 50vw" /></div>
     </div>
   </div>;
 }
@@ -495,6 +495,72 @@ export default function Home() {
       root.classList.remove("motion-enabled");
     };
   }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const root = document.documentElement;
+
+    if (reducedMotion) {
+      root.classList.remove("tablet-scroll-enabled");
+      return;
+    }
+
+    let animationFrame = 0;
+    const clamp = (value: number) => Math.min(1, Math.max(0, value));
+
+    const updateTabletMotion = () => {
+      animationFrame = 0;
+      const viewportHeight = window.innerHeight;
+      const viewportWidth = window.innerWidth;
+      const compact = viewportWidth <= 820;
+      const cards = Array.from(document.querySelectorAll<HTMLElement>(".project-card"));
+
+      cards.forEach((card, index) => {
+        const tablet = card.querySelector<HTMLElement>(".site-preview");
+        if (!tablet) return;
+
+        const rect = card.getBoundingClientRect();
+        const animationStart = viewportHeight * (compact ? 1.02 : 1.08);
+        const animationEnd = viewportHeight * (compact ? 0.32 : 0.24);
+        const progress = clamp((animationStart - rect.top) / (animationStart - animationEnd));
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const direction = index % 2 === 0 ? -1 : 1;
+        const travel = Math.min(viewportWidth * (compact ? 0.24 : 0.3), compact ? 150 : 390);
+        const restingX = direction * Math.min(viewportWidth * (compact ? 0.012 : 0.018), compact ? 10 : 34);
+        const x = restingX + direction * travel * (1 - eased);
+        const y = (compact ? 92 : 155) * (1 - eased);
+        const rotation = direction * ((compact ? 2.2 : 3.2) + (compact ? 5.2 : 7.8) * (1 - eased));
+        const rotateY = direction * (compact ? 4 : 8) * (1 - eased);
+        const rotateX = (compact ? 2.5 : 5) * (1 - eased);
+        const scale = (compact ? 0.88 : 0.8) + (compact ? 0.12 : 0.2) * eased;
+        const opacity = clamp(0.18 + progress * 1.35);
+
+        tablet.style.setProperty("--tablet-x", `${x.toFixed(2)}px`);
+        tablet.style.setProperty("--tablet-y", `${y.toFixed(2)}px`);
+        tablet.style.setProperty("--tablet-rotate", `${rotation.toFixed(2)}deg`);
+        tablet.style.setProperty("--tablet-rotate-x", `${rotateX.toFixed(2)}deg`);
+        tablet.style.setProperty("--tablet-rotate-y", `${rotateY.toFixed(2)}deg`);
+        tablet.style.setProperty("--tablet-scale", scale.toFixed(4));
+        tablet.style.setProperty("--tablet-opacity", opacity.toFixed(3));
+      });
+    };
+
+    const requestTabletUpdate = () => {
+      if (!animationFrame) animationFrame = window.requestAnimationFrame(updateTabletMotion);
+    };
+
+    root.classList.add("tablet-scroll-enabled");
+    requestTabletUpdate();
+    window.addEventListener("scroll", requestTabletUpdate, { passive: true });
+    window.addEventListener("resize", requestTabletUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestTabletUpdate);
+      window.removeEventListener("resize", requestTabletUpdate);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+      root.classList.remove("tablet-scroll-enabled");
+    };
+  }, [filter, language]);
 
   return (
     <main id="top">
