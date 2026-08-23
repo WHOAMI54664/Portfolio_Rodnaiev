@@ -42,7 +42,7 @@ a { text-decoration: none; }
 .eyebrow { display: flex; align-items: center; gap: 10px; }
 .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 6px var(--mint-soft); animation: pulse 2.2s infinite; }
 .hero h1 { margin: 0 0 27px; max-width: 1120px; font-size: clamp(64px,6.2vw,102px); font-weight: 900; line-height: .94; letter-spacing: -.073em; text-wrap: balance; }
-.hero h1 em { display: inline-block; color: var(--mint); font-style: normal; font-weight: 900; }
+.hero h1 em { display: inline-block; color: var(--mint); background: linear-gradient(100deg,#78d6a2 0%,#45b982 42%,#168f72 72%,#0f766e 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 900; }
 .hero-intro { width: 100%; max-width: 610px; margin: 0 0 13px; font-size: 20px; line-height: 1.48; letter-spacing: -.018em; }
 .hero-detail { width: 100%; max-width: 580px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.65; }
 .typewriter-text { display: grid; }.typewriter-text > span { grid-area: 1/1; }.typewriter-measure { visibility: hidden; }.typewriter-output { position: relative; }.typewriter-cursor { width: 2px; height: .95em; margin-left: 4px; display: inline-block; vertical-align: -.08em; border-radius: 2px; background: var(--mint-deep); animation: typeCursor .72s steps(1,end) infinite; }.typewriter-text.complete .typewriter-cursor { animation: typeCursorFinish 1.2s steps(1,end) forwards; }
