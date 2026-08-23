@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { FaLinkedin } from "react-icons/fa6";
-import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuDownload, LuGraduationCap, LuMapPin, LuMenu, LuX } from "react-icons/lu";
+import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCode, LuDatabase, LuDownload, LuGraduationCap, LuLayoutTemplate, LuMapPin, LuMenu, LuMousePointerClick, LuPlus, LuRocket, LuRoute, LuSearch, LuX } from "react-icons/lu";
 import { SiGithub, SiGmail } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
@@ -93,6 +93,15 @@ const content = {
     processTitle: "От идеи до работающего продукта",
     processIntro: "Сначала понимаю контекст и потребности пользователя, затем проектирую опыт и довожу решение до production.",
     process: ["Исследование", "User flow", "Интерфейс", "Прототип", "Frontend", "Backend", "Production"],
+    processDetails: [
+      "Исследую контекст, пользователей и ограничения.",
+      "Выстраиваю понятный путь пользователя.",
+      "Создаю визуальную систему и интерфейсы.",
+      "Проверяю сценарии в интерактивном прототипе.",
+      "Собираю быстрый и адаптивный frontend.",
+      "Подключаю данные, API и бизнес-логику.",
+      "Тестирую, выпускаю и наблюдаю в production.",
+    ],
     skillsKicker: "Технологии",
     skillsTitle: "Инструменты для полного продуктового цикла",
     skillGroups: [
@@ -195,6 +204,15 @@ const content = {
     processTitle: "From an idea to a working product",
     processIntro: "I start with the context and user needs, then design the experience and carry the solution into production.",
     process: ["Research", "User flow", "Interface", "Prototype", "Frontend", "Backend", "Production"],
+    processDetails: [
+      "Explore the context, users and constraints.",
+      "Shape a clear path through the product.",
+      "Create the visual system and interfaces.",
+      "Validate key flows with an interactive prototype.",
+      "Build a fast, responsive frontend.",
+      "Connect data, APIs and business logic.",
+      "Test, launch and observe in production.",
+    ],
     skillsKicker: "Technologies",
     skillsTitle: "Tools for the complete product cycle",
     skillGroups: [
@@ -297,6 +315,15 @@ const content = {
     processTitle: "Från idé till fungerande produkt",
     processIntro: "Jag börjar med sammanhanget och användarens behov, designar upplevelsen och för lösningen hela vägen till produktion.",
     process: ["Research", "Användarflöde", "Gränssnitt", "Prototyp", "Frontend", "Backend", "Produktion"],
+    processDetails: [
+      "Utforskar sammanhang, användare och begränsningar.",
+      "Skapar en tydlig väg genom produkten.",
+      "Bygger det visuella systemet och gränssnitten.",
+      "Validerar viktiga flöden i en interaktiv prototyp.",
+      "Utvecklar en snabb och responsiv frontend.",
+      "Kopplar data, API:er och affärslogik.",
+      "Testar, lanserar och följer upp i produktion.",
+    ],
     skillsKicker: "Teknik",
     skillsTitle: "Verktyg för hela produktcykeln",
     skillGroups: [
@@ -332,6 +359,8 @@ const projectMeta: Record<ProjectKey, { status: ProjectStatus; url: string; stac
 };
 
 const projectKeys = Object.keys(projectMeta) as ProjectKey[];
+
+const PROCESS_ICONS = [LuSearch, LuRoute, LuLayoutTemplate, LuMousePointerClick, LuCode, LuDatabase, LuRocket] as const;
 
 const projectCovers: Record<ProjectKey, { src: string }> = {
   ostrov: { src: "/projects/ostrovua-home.png" },
@@ -437,7 +466,7 @@ export default function Home() {
       ".about-copy > *",
       ".role-list > span",
       ".process-heading > *",
-      ".process > div",
+      ".process-card",
       ".skills-grid > article",
       ".skill-card > div:last-child > span",
       ".credentials > article",
@@ -622,8 +651,15 @@ export default function Home() {
           <div className="role-panel"><small>{t.lookingFor}</small><div className="role-list">{t.roles.map((role) => <span key={role}>{role}</span>)}</div></div>
         </div>
         <div className="process-panel">
-          <div className="process-heading"><small>{t.processLabel} / 01—07</small><h3>{t.processTitle}</h3><p>{t.processIntro}</p></div>
-          <div className="process">{t.process.map((step, index) => <div key={step}><b>{String(index + 1).padStart(2, "0")}</b><span>{step}</span></div>)}</div>
+          <div className="process-heading"><div><small>{t.processLabel} / 01—07</small><h3>{t.processTitle}</h3></div><p>{t.processIntro}</p></div>
+          <div className="process" role="region" aria-label={`${t.processLabel}: ${t.processTitle}`}>{t.process.map((step, index) => {
+            const ProcessIcon = PROCESS_ICONS[index] ?? LuSearch;
+            return <article className="process-card" key={step}>
+              <div className="process-card-top"><span className="process-icon"><ProcessIcon /></span><b>{String(index + 1).padStart(2, "0")}</b></div>
+              <div><h4>{step}</h4><p>{t.processDetails[index]}</p></div>
+              <span className="process-plus" aria-hidden="true"><LuPlus /></span>
+            </article>;
+          })}</div>
         </div>
       </section>
 
