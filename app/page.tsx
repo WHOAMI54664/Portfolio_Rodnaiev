@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { FaLinkedin } from "react-icons/fa6";
 import { LuArrowDown, LuArrowDownRight, LuArrowRight, LuArrowUpRight, LuCode, LuDatabase, LuDownload, LuGraduationCap, LuLayoutTemplate, LuMapPin, LuMenu, LuMousePointerClick, LuPlus, LuRocket, LuRoute, LuSearch, LuX } from "react-icons/lu";
-import { SiGithub, SiGmail } from "react-icons/si";
+import { SiGithub, SiGmail, SiTelegram, SiWhatsapp } from "react-icons/si";
 
 type Language = "ru" | "en" | "sv";
 type ProjectKey = "ostrov" | "laboris" | "nordic";
@@ -14,6 +14,8 @@ type Filter = "all" | ProjectStatus;
 const SOCIAL = {
   github: "https://github.com/WHOAMI54664",
   linkedin: "https://www.linkedin.com/",
+  whatsapp: "https://wa.me/46738935565",
+  telegram: "https://t.me/+46738935565",
 };
 
 const content = {
@@ -607,7 +609,7 @@ export default function Home() {
       <button className={`mobile-menu-scrim ${mobileMenuOpen ? "open" : ""}`} type="button" aria-label="Close navigation menu" tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)} />
       <nav className={`mobile-menu ${mobileMenuOpen ? "open" : ""}`} id="mobile-navigation" aria-label="Mobile navigation" aria-hidden={!mobileMenuOpen}>
         {([["01", "work", t.nav.work], ["02", "about", t.nav.about], ["03", "skills", t.nav.skills], ["04", "contact", t.nav.contact]] as const).map(([number, anchor, label]) => <a key={anchor} href={`#${anchor}`} tabIndex={mobileMenuOpen ? 0 : -1} onClick={() => setMobileMenuOpen(false)}><small>{number}</small><span>{label}</span><b><LuArrowDownRight /></b></a>)}
-        <div className="mobile-menu-footer"><span>DANYLO RODNAIEV<br />Luleå / Norrbotten</span><div><a href={SOCIAL.github} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><SiGithub /> GitHub</a><a href={SOCIAL.linkedin} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><FaLinkedin /> LinkedIn</a></div></div>
+        <div className="mobile-menu-footer"><span>DANYLO RODNAIEV<br />Luleå / Norrbotten</span><div><a href={SOCIAL.github} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1}><FaLinkedin /> LinkedIn</a><a className="whatsapp" href={SOCIAL.whatsapp} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1} aria-label="WhatsApp: +46 73 893 55 65"><SiWhatsapp /> WhatsApp</a><a className="telegram" href={SOCIAL.telegram} target="_blank" rel="noreferrer" tabIndex={mobileMenuOpen ? 0 : -1} aria-label="Telegram: +46 73 893 55 65"><SiTelegram /> Telegram</a></div></div>
       </nav>
 
       <section className="hero section-shell">
@@ -681,7 +683,7 @@ export default function Home() {
         <article><p className="section-kicker">{t.languagesTitle}</p><div className="language-levels">{t.languages.map(([name, level], index) => <div key={name}><span><b>{name}</b><small>{level}</small></span><i style={{ "--level": `${[100, 76, 34][index]}%` } as React.CSSProperties} /></div>)}</div></article>
       </section>
 
-      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span className="gmail-icon"><SiGmail /></span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a className="github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a></div></div></div></section>
+      <section className="contact-section" id="contact"><div className="contact-glow" /><div className="section-shell contact-inner"><div><h2>{t.contactTitle}</h2><p>{t.contactText}</p></div><div className="contact-actions"><a className="email-button" href="mailto:borodkin0311@gmail.com"><span className="gmail-icon"><SiGmail /></span><small>{t.email}</small><b>borodkin0311@gmail.com</b></a><div><a className="github" href={SOCIAL.github} target="_blank" rel="noreferrer"><SiGithub /> GitHub</a><a className="linkedin" href={SOCIAL.linkedin} target="_blank" rel="noreferrer"><FaLinkedin /> LinkedIn</a><a className="whatsapp" href={SOCIAL.whatsapp} target="_blank" rel="noreferrer" aria-label="WhatsApp: +46 73 893 55 65"><SiWhatsapp /> WhatsApp</a><a className="telegram" href={SOCIAL.telegram} target="_blank" rel="noreferrer" aria-label="Telegram: +46 73 893 55 65"><SiTelegram /> Telegram</a></div></div></div></section>
 
       <footer className="section-shell"><a className="wordmark" href="#top">DANYLO<br />RODNAIEV</a><p>Frontend / Full-Stack Developer<br />UI/UX Designer</p><p>Luleå / Norrbotten, Sweden</p><p>© 2026</p></footer>
 
